@@ -340,7 +340,7 @@ export default function AdminPanel() {
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           <Tabs defaultValue="rate-management" className="space-y-6">
-            <TabsList className="grid w-full grid-cols-6">
+            <TabsList className=" sm:grid w-full sm:grid-cols-6 flex-wrap gap-2">
               <TabsTrigger value="rate-management">Rate Management</TabsTrigger>
               <TabsTrigger value="wallet-management">Wallet Management</TabsTrigger>
               <TabsTrigger value="sell-orders">Sell Orders</TabsTrigger>
