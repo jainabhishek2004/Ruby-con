@@ -10,7 +10,7 @@ import Dashboard from './components/Dashboard';
 import AdminPanel from './components/AdminPanel';
 import Support from './components/Support';
 import Contact from './components/Contact';
-import Announcements from './components/Announcements';
+
 import LoginModal from './components/LoginModal';
 
 export default function App() {
@@ -85,8 +85,7 @@ export default function App() {
         return <Support />;
       case 'contact':
         return <Contact />;
-      case 'announcements':
-        return <Announcements />;
+      
       default:
         return <Homepage onPageChange={handlePageChange} onLogin={handleLoginModalOpen} />;
     }
@@ -150,7 +149,7 @@ export default function App() {
               <ul className="space-y-2 text-sm text-muted-foreground">
                 <li><button onClick={() => handlePageChange('about')} className="hover:text-primary">About Us</button></li>
                 <li><button onClick={() => handlePageChange('tokenomics')} className="hover:text-primary">Tokenomics</button></li>
-                <li><button onClick={() => handlePageChange('announcements')} className="hover:text-primary">Announcements</button></li>
+               
                 <li><button onClick={() => handleLoginModalOpen()} className="hover:text-primary">Portal Access</button></li>
                 {isAdmin && (
                   <li><button onClick={() => handlePageChange('admin')} className="hover:text-primary text-primary">Admin Panel</button></li>

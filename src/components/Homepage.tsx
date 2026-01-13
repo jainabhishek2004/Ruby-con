@@ -703,7 +703,7 @@ export default function Homepage({ onPageChange, onLogin }: HomepageProps) {
             <div>
               <h3 className="font-semibold mb-4">Platform</h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                {['About Us', 'Tokenomics', 'Dashboard', 'Announcements'].map((link) => (
+                {['About Us', 'Tokenomics', 'Dashboard'].map((link) => (
                   <li key={link}>
                     <button
                       onClick={() => onPageChange(link.toLowerCase().replace(' ', ''))}

@@ -35,7 +35,7 @@ export default function Header({
     { id: 'home', label: 'Home', icon: Home },
     { id: 'about', label: 'About', icon: Info },
     { id: 'tokenomics', label: 'Tokenomics', icon: BarChart3 },
-    { id: 'announcements', label: 'News', icon: Bell },
+   
     { id: 'support', label: 'Support', icon: LifeBuoy },
     { id: 'contact', label: 'Contact', icon: Mail },
   ];
