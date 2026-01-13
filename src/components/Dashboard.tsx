@@ -388,33 +388,56 @@ export default function Dashboard() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <h1 className="text-3xl font-bold text-foreground">Welcome back, {userProfile.displayName}</h1>
-              <p className="text-muted-foreground">Holder ID: {userProfile.holderId}</p>
-            </div>
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2">
-                <Label htmlFor="user-select" className="text-sm">Switch User:</Label>
-                <Select value={currentUserId} onValueChange={setCurrentUserId}>
-                  <SelectTrigger className="w-48">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {users.map((user) => (
-                      <SelectItem key={user.id} value={user.id}>
-                        {user.name} ({user.holderId})
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <Badge variant="default" className="bg-green-100 text-green-800">
-                <CheckCircle className="w-4 h-4 mr-1" />
-                KYC Verified
-              </Badge>
-            </div>
-          </div>
+    <div className="flex flex-col gap-4 mb-4
+                sm:flex-row sm:items-center justify-between">
+
+  {/* Left section */}
+  <div className="text-center sm:text-left">
+    <h1 className="text-2xl sm:text-3xl font-bold text-foreground">
+      Welcome back, {userProfile.displayName}
+    </h1>
+    <p className="text-muted-foreground">
+      Holder ID: {userProfile.holderId}
+    </p>
+  </div>
+
+  {/* Right section */}
+  <div className="
+    flex flex-col gap-3 items-center
+    sm:flex-row sm:items-center sm:gap-6
+  ">
+    {/* Switch user */}
+    <div className="flex flex-col gap-1 w-full sm:w-auto sm:flex-row sm:items-center sm:gap-2">
+      <Label htmlFor="user-select" className="text-sm text-center sm:text-left whitespace-nowrap">
+        Switch User:
+      </Label>
+
+      <Select value={currentUserId} onValueChange={setCurrentUserId}>
+        <SelectTrigger className="w-full sm:w-48">
+          <SelectValue />
+        </SelectTrigger>
+        <SelectContent>
+          {users.map((user) => (
+            <SelectItem key={user.id} value={user.id}>
+              {user.name} ({user.holderId})
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </div>
+
+    {/* Badge */}
+    <Badge
+      variant="default"
+      className="bg-green-100 text-green-800  sm:w-auto
+                 justify-center"
+    >
+      <CheckCircle className="w-4 h-4 mr-1" />
+      KYC Verified
+    </Badge>
+  </div>
+</div>
+
         </motion.div>
 
         {/* Overview Cards */}
@@ -491,9 +514,10 @@ export default function Dashboard() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
+          
         >
           <Tabs defaultValue="wallet" className="space-y-6">
-            <TabsList className="grid w-full grid-cols-7">
+            <TabsList className="sm:grid w-full sm:grid-cols-7 flex-wrap gap-2">
               <TabsTrigger value="wallet">Wallet</TabsTrigger>
               <TabsTrigger value="sell-orders">Sell Orders</TabsTrigger>
               <TabsTrigger value="withdrawals">Withdrawals</TabsTrigger>
@@ -504,7 +528,7 @@ export default function Dashboard() {
             </TabsList>
 
             {/* Wallet Tab */}
-            <TabsContent value="wallet" className="space-y-6">
+            <TabsContent value="wallet" className="space-y-6 mt-4">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Wallet Info */}
                 <Card className="bg-card/80 backdrop-blur-sm">
@@ -640,12 +664,12 @@ export default function Dashboard() {
             </TabsContent>
 
             {/* Sell Orders Tab */}
-            <TabsContent value="sell-orders" className="space-y-6">
+            <TabsContent value="sell-orders" className="space-y-6 mt-4">
               <SellOrders />
             </TabsContent>
 
             {/* Enhanced Withdrawals Tab with Receipt System */}
-            <TabsContent value="withdrawals" className="space-y-6">
+            <TabsContent value="withdrawals" className="space-y-6 mt-4">
               {/* Pending Withdrawals Summary */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                 <Card className="bg-card/80 backdrop-blur-sm">
@@ -836,7 +860,7 @@ export default function Dashboard() {
             </TabsContent>
 
             {/* Payouts Tab */}
-            <TabsContent value="payouts" className="space-y-6">
+            <TabsContent value="payouts" className="space-y-6 mt-4">
               <Card className="bg-card/80 backdrop-blur-sm">
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-2">
@@ -889,7 +913,7 @@ export default function Dashboard() {
             </TabsContent>
 
             {/* Enhanced Transactions Tab with Modal */}
-            <TabsContent value="transactions" className="space-y-6">
+            <TabsContent value="transactions" className="space-y-6 mt-4">
               <Card className="bg-card/80 backdrop-blur-sm">
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-2">
@@ -955,7 +979,7 @@ export default function Dashboard() {
             </TabsContent>
 
             {/* Profile Tab */}
-            <TabsContent value="profile" className="space-y-6">
+            <TabsContent value="profile" className="space-y-6 mt-4">
               <Card className="bg-card/80 backdrop-blur-sm">
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-2">
@@ -995,7 +1019,7 @@ export default function Dashboard() {
             </TabsContent>
 
             {/* Admin Tab */}
-            <TabsContent value="admin" className="space-y-6">
+            <TabsContent value="admin" className="space-y-6 mt-4">
               <Card className="bg-card/80 backdrop-blur-sm">
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-2">
