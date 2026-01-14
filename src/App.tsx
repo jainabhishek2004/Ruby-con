@@ -15,7 +15,7 @@ import LoginModal from './components/LoginModal';
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState('dashboard');
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
 
