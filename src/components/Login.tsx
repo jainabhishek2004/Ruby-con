@@ -246,9 +246,9 @@ export function LoginPage() {
             {/* Header */}
             <div>
               <div className="flex items-center gap-3 mb-12">
-                <div className="w-12 h-12 rounded-lg bg-white/20 flex items-center justify-center backdrop-blur-sm">
-                  <span className="text-2xl">₿</span>
-                </div>
+                <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary/80 rounded-xl flex items-center justify-center shadow-md">
+              <div className="w-5 h-5 bg-white rounded-md rotate-45" />
+            </div>
                 <div>
                   <h1 className="text-xl font-bold">RubyCon</h1>
                   <p className="text-sm opacity-90">RBQ Token Ecosystem</p>
@@ -318,9 +318,9 @@ export function LoginPage() {
           <Card className="w-full max-w-md glass-effect shadow-2xl relative z-10">
             <CardHeader className="space-y-1 text-center pb-4">
               <div className="flex items-center justify-center mb-4">
-                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg logo-pulse">
-                  <span className="text-3xl">₿</span>
-                </div>
+                <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary/80 rounded-xl flex items-center justify-center shadow-md">
+              <div className="w-5 h-5 bg-white rounded-md rotate-45" />
+            </div>
               </div>
               <CardTitle className="text-2xl font-bold tracking-tight">
                 {isSignUp ? "Create an account" : "Login to your account"}
