@@ -278,22 +278,72 @@ export default function App() {
         {/* Footer */}
         {!isLoginRoute && (
           <footer className="bg-card border-t border-border py-8 px-4">
-            <div className="max-w-7xl mx-auto">
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+              <div className="flex items-center space-x-3 mb-4">
+                <div className="w-8 h-8 bg-gradient-to-br from-primary to-primary/80 rounded-lg flex items-center justify-center">
+                  <div className="w-4 h-4 bg-white rounded-sm transform rotate-45"></div>
+                </div>
                 <div>
                   <h3 className="font-bold text-primary">RubyCon</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Shaping the future of decentralized value through transparent,
-                    secure, and community-driven financial solutions.
-                  </p>
+                  <p className="text-xs text-muted-foreground">RBQ Token</p>
                 </div>
               </div>
+              <p className="text-sm text-muted-foreground">
+                Shaping the future of decentralized value through transparent, 
+                secure, and community-driven financial solutions.
+              </p>
+            </div>
 
-              <div className="border-t border-border mt-8 pt-8 text-sm text-muted-foreground">
-                © 2024 RubyCon. All rights reserved.
+            <div>
+              <h4 className="font-semibold mb-4">Platform</h4>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li><button onClick={() => handlePageChange('about')} className="hover:text-primary">About Us</button></li>
+                <li><button onClick={() => handlePageChange('tokenomics')} className="hover:text-primary">Tokenomics</button></li>
+               
+                <li><button onClick={() => handleLoginModalOpen()} className="hover:text-primary">Portal Access</button></li>
+                {isAdmin && (
+                  <li><button onClick={() => handlePageChange('admin')} className="hover:text-primary text-primary">Admin Panel</button></li>
+                )}
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-semibold mb-4">Support</h4>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li><button onClick={() => handlePageChange('support')} className="hover:text-primary">Help Center</button></li>
+                <li><button onClick={() => handlePageChange('contact')} className="hover:text-primary">Contact Us</button></li>
+                <li><a href="mailto:support@rubyconworld.in" className="hover:text-primary">Email Support</a></li>
+                <li><a href="https://telegram.me/RubyConOfficial" className="hover:text-primary">Telegram</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-semibold mb-4">Legal</h4>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li><a href="#" className="hover:text-primary">Privacy Policy</a></li>
+                <li><a href="#" className="hover:text-primary">Terms of Service</a></li>
+                <li><a href="#" className="hover:text-primary">Risk Disclosure</a></li>
+                <li><a href="#" className="hover:text-primary">Compliance</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="border-t border-border mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+            <p className="text-sm text-muted-foreground">
+              © 2024 RubyCon. All rights reserved.
+            </p>
+            <div className="flex items-center space-x-4 mt-4 md:mt-0">
+              <span className="text-sm text-muted-foreground">Registered in India</span>
+              <div className="flex items-center space-x-2">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse-ruby"></div>
+                <span className="text-xs text-muted-foreground">Secure & Compliant</span>
               </div>
             </div>
-          </footer>
+          </div>
+        </div>
+      </footer>
         )}
       </div>
     </>
