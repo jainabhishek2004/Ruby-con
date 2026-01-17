@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Toaster } from './components/ui/sonner';
 import { toast } from 'sonner@2.0.3';
-import { RubyConProvider } from './components/RubyConContext';
+
 import Header from './components/Header';
 import Homepage from './components/Homepage';
 import About from './components/About';
@@ -10,14 +10,36 @@ import Dashboard from './components/Dashboard';
 import AdminPanel from './components/AdminPanel';
 import Support from './components/Support';
 import Contact from './components/Contact';
+import {LoginPage} from './components/Login';
+import { RubyConProvider, useRubyCon } from './components/RubyConContext';
+import { Routes, Route , useLocation} from 'react-router-dom';
+
+
 
 import LoginModal from './components/LoginModal';
+
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState('dashboard');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const { theme } = useRubyCon();
+
+  useEffect(() => {
+    if (theme.mode === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [theme]);
+  const location = useLocation();
+const isLoginRoute = location.pathname === '/Login';
+
+  
+
+
+  
 
   const handleLogin = (credentials: { email: string; password: string }) => {
     // Check if admin credentials
@@ -75,6 +97,8 @@ export default function App() {
         return <Homepage onPageChange={handlePageChange} onLogin={handleLoginModalOpen} />;
       case 'about':
         return <About />;
+      
+      
       case 'tokenomics':
         return <Tokenomics />;
       case 'dashboard':
@@ -91,22 +115,38 @@ export default function App() {
     }
   };
 
-  return (
-    <RubyConProvider>
-      <div className="min-h-screen bg-background">
-        <Header
-          currentPage={currentPage}
-          onPageChange={handlePageChange}
-          isLoggedIn={isLoggedIn}
-          isAdmin={isAdmin}
-          onLogin={handleLoginModalOpen}
-          onLogout={handleLogout}
-        />
-        
-        <main>
-          {renderCurrentPage()}
-        </main>
 
+  
+
+  return (
+    <>
+    
+      <div >
+        {!isLoginRoute && (
+  <Header
+    currentPage={currentPage}
+    onPageChange={handlePageChange}
+    isLoggedIn={isLoggedIn}
+    isAdmin={isAdmin}
+    onLogin={handleLoginModalOpen}
+    onLogout={handleLogout}
+  />
+)}
+
+        
+        
+          {isLoginRoute ? (
+    <Routes>
+      <Route path="/Login" element={<LoginPage  />} />
+    </Routes>
+  ) : (
+    <main>
+    <>{renderCurrentPage()}</>
+     </main>
+
+  )}
+
+       
         <LoginModal
           isOpen={showLoginModal}
           onClose={() => setShowLoginModal(false)}
@@ -125,6 +165,7 @@ export default function App() {
         />
 
       {/* Footer */}
+      {!isLoginRoute && (
       <footer className="bg-card border-t border-border py-8 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -192,7 +233,8 @@ export default function App() {
           </div>
         </div>
       </footer>
+      )}
       </div>
-    </RubyConProvider>
+    </>
   );
 }

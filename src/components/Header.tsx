@@ -176,6 +176,8 @@
 import React, { useState } from 'react';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
+import { Sun, Moon } from 'lucide-react';
+
 import {
   LogOut,
   User,
@@ -189,6 +191,7 @@ import {
   Menu,
   X
 } from 'lucide-react';
+import { useRubyCon } from './RubyConContext';
 
 interface HeaderProps {
   currentPage: string;
@@ -197,6 +200,7 @@ interface HeaderProps {
   isAdmin?: boolean;
   onLogin: () => void;
   onLogout: () => void;
+  
 }
 
 export default function Header({
@@ -205,8 +209,12 @@ export default function Header({
   isLoggedIn,
   isAdmin = false,
   onLogin,
-  onLogout
+  onLogout,
+  
 }: HeaderProps) {
+
+  const{toggleTheme ,theme} = useRubyCon();
+
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const navItems = [
@@ -303,17 +311,24 @@ export default function Header({
                 <Shield className="w-4 h-4 mr-1" />
                 Login
               </Button>
+
             )}
+            <Button variant="outline" size="lg" onClick={toggleTheme}> {theme.mode === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}</Button>
           </div>
 
           {/* MOBILE MENU BUTTON */}
+          <div className="flex items-center gap-2">
+          <Button variant="outline" size="lg"   className="md:hidden" onClick={toggleTheme}> {theme.mode === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}</Button>
           <button
             className="md:hidden"
             onClick={() => setMobileOpen(!mobileOpen)}
           >
             {mobileOpen ? <X /> : <Menu />}
           </button>
+         
+          </div>
         </div>
+
 
         {/* MOBILE MENU */}
         {mobileOpen && (

@@ -11,6 +11,7 @@ interface HomepageProps {
   onLogin: () => void;
 }
 
+
 export default function Homepage({ onPageChange, onLogin }: HomepageProps) {
   const { rbqRate, getDailyChange, getWeeklyChange } = useRubyCon();
   
@@ -501,74 +502,7 @@ export default function Homepage({ onPageChange, onLogin }: HomepageProps) {
         </div>
       </section>
 
-      {/* Testimonials / Community Section */}
-      <section className="py-20 px-4 bg-secondary/30">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.2 }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-4xl font-bold mb-4">Trusted by Thousands</h2>
-            <p className="text-xl text-muted-foreground">Join our growing community of holders</p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {[
-              { 
-                name: 'Rajesh Kumar', 
-                role: 'Early Holder', 
-                content: 'RubyCon has transformed my investment strategy. The transparent payout system and real-time tracking are exceptional.',
-                tokens: '2,500 RBQ',
-                joined: 'Jan 2025'
-              },
-              { 
-                name: 'Priya Sharma', 
-                role: 'Premium Member', 
-                content: 'Best decision I made was joining RubyCon early. The platform is secure, professional, and the returns speak for themselves.',
-                tokens: '5,200 RBQ',
-                joined: 'Dec 2024'
-              },
-              { 
-                name: 'Amit Patel', 
-                role: 'Power Holder', 
-                content: 'The team behind RubyCon is transparent and responsive. Weekly payouts are always on time. Highly recommended!',
-                tokens: '8,750 RBQ',
-                joined: 'Nov 2024'
-              },
-            ].map((testimonial, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.3 + index * 0.1 }}
-              >
-                <Card className="h-full bg-card/80 backdrop-blur-sm border-primary/20 hover:border-primary/30 transition-all">
-                  <CardContent className="pt-6">
-                    <div className="flex items-center space-x-3 mb-4">
-                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center text-primary-foreground font-semibold">
-                        {testimonial.name.charAt(0)}
-                      </div>
-                      <div>
-                        <div className="font-semibold">{testimonial.name}</div>
-                        <div className="text-xs text-muted-foreground">{testimonial.role}</div>
-                      </div>
-                    </div>
-                    <p className="text-muted-foreground mb-4 text-sm italic">
-                      "{testimonial.content}"
-                    </p>
-                    <div className="flex items-center justify-between text-xs text-muted-foreground pt-4 border-t border-border">
-                      <span>Holds {testimonial.tokens}</span>
-                      <span>Since {testimonial.joined}</span>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+      
 
       {/* CTA Section */}
       <section className="relative py-20 px-4 overflow-hidden">

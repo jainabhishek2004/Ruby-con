@@ -46,6 +46,8 @@ interface SellOrder {
 
 interface RubyConContextType {
   rbqRate: number;
+  theme: { mode: 'light' | 'dark' };
+  toggleTheme: () => void;
   setRbqRate: (rate: number) => void;
   users: User[];
   setUsers: (users: User[]) => void;
@@ -71,6 +73,7 @@ interface RubyConContextType {
   getAllSellOrders: () => SellOrder[];
 }
 
+
 const RubyConContext = createContext<RubyConContextType | undefined>(undefined);
 
 export const useRubyCon = () => {
@@ -88,6 +91,8 @@ interface RubyConProviderProps {
 export const RubyConProvider: React.FC<RubyConProviderProps> = ({ children }) => {
   const [rbqRate, setRbqRateState] = useState(36.5); // Current rate set to 36.5 INR
   const [currentUserId, setCurrentUserId] = useState('user-001');
+  const [theme, setTheme] = useState({ mode: 'light'});  
+
   
   // Price history tracking
   const [priceHistory, setPriceHistory] = useState<PriceHistory[]>([
@@ -333,6 +338,14 @@ export const RubyConProvider: React.FC<RubyConProviderProps> = ({ children }) =>
     toast.success(`RBQ rate updated to ₹${rate.toFixed(2)} per token`, {
       duration: 3000,
     });
+  };
+  const toggleTheme = () => {
+    console.log('OOUCH TOGGLE THEME CALLED');
+    setTheme(prevTheme => {
+      const newMode = prevTheme.mode === 'light' ? 'dark' : 'light';
+      return { ...prevTheme, mode: newMode };
+    });
+    console.log('Theme changed to:', theme.mode);
   };
 
   const updateUserBalance = (userId: string, newBalance: number) => {
@@ -586,7 +599,9 @@ export const RubyConProvider: React.FC<RubyConProviderProps> = ({ children }) =>
     createSellOrder,
     cancelSellOrder,
     getUserSellOrders,
-    getAllSellOrders
+    getAllSellOrders,
+    toggleTheme,
+    theme
   };
 
   return (

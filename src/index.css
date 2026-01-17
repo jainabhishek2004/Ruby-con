@@ -3571,13 +3571,13 @@
 }
 
 .dark {
-  --background: #1e1e1e;
-  --foreground: #fff;
+  --background: #000000;
+  --foreground: #ffffff;
   --card: #2a2a2a;
   --card-foreground: #fff;
   --popover: #2a2a2a;
   --popover-foreground: #fff;
-  --primary: #aa0114;
+  --primary: #ca152a;
   --primary-foreground: #fff;
   --secondary: #3a3a3a;
   --secondary-foreground: #fff;
