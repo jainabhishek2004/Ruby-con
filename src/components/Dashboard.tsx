@@ -119,8 +119,8 @@ export default function Dashboard() {
   };
 
   const walletData = {
-    rbqBalance: formatRBQValue(currentUser.rbqBalance),
-    inrValue: formatINRValue(currentUser.rbqBalance),
+    rbqBalance: formatRBQValue(currentUser.rbqBalance || 0),
+    inrValue: formatINRValue((currentUser.rbqBalance || 0) * rbqRate),
     walletAddress: "RBQ1x7F9mK3nP8vQ2wR5tY6uE8dH4jS9cL1aB0"
   };
 
@@ -412,18 +412,7 @@ export default function Dashboard() {
         Switch User:
       </Label>
 
-      <Select value={currentUserId} onValueChange={setCurrentUserId}>
-        <SelectTrigger className="w-full sm:w-48">
-          <SelectValue />
-        </SelectTrigger>
-        <SelectContent>
-          {users.map((user) => (
-            <SelectItem key={user.id} value={user.id}>
-              {user.name} ({user.holderId})
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+     
     </div>
 
     {/* Badge */}

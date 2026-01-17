@@ -1,5 +1,6 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode ,useEffect} from 'react';
 import { toast } from 'sonner@2.0.3';
+import { supabase } from "@/lib/supabase";
 
 interface Transaction {
   id: string;
@@ -245,75 +246,94 @@ export const RubyConProvider: React.FC<RubyConProviderProps> = ({ children }) =>
   ]);
   
   // Mock users data
-  const [users, setUsers] = useState<User[]>([
-    {
-      id: 'user-001',
-      name: 'John Doe',
-      holderId: 'RBC-15247',
-      email: 'john.doe@example.com',
-      rbqBalance: 6500,
-      kycStatus: 'Verified',
-      joinDate: '2024-03-15',
-      assignedManager: 'Sarah Wilson',
-      managerContact: 'sarah.wilson@rubyconworld.in'
-    },
-    {
-      id: 'user-002',
-      name: 'Jane Smith',
-      holderId: 'RBC-15248',
-      email: 'jane.smith@example.com',
-      rbqBalance: 3500,
-      kycStatus: 'Verified',
-      joinDate: '2024-02-20',
-      assignedManager: 'David Johnson',
-      managerContact: 'david.johnson@rubyconworld.in'
-    },
-    {
-      id: 'user-003',
-      name: 'Mike Johnson',
-      holderId: 'RBC-15249',
-      email: 'mike.johnson@example.com',
-      rbqBalance: 15632.89,
-      kycStatus: 'Pending',
-      joinDate: '2024-04-10',
-      assignedManager: 'Sarah Wilson',
-      managerContact: 'sarah.wilson@rubyconworld.in'
-    },
-    {
-      id: 'user-004',
-      name: 'Sarah Brown',
-      holderId: 'RBC-15250',
-      email: 'sarah.brown@example.com',
-      rbqBalance: 6892.15,
-      kycStatus: 'Verified',
-      joinDate: '2024-01-15',
-      assignedManager: 'David Johnson',
-      managerContact: 'david.johnson@rubyconworld.in'
-    },
-    {
-      id: 'user-005',
-      name: 'Vedant Sangwan',
-      holderId: 'RBC-240188',
-      email: 'vedant.sangwan@example.com',
-      rbqBalance: 5091.71,
-      kycStatus: 'Verified',
-      joinDate: '2024-04-20',
-      assignedManager: 'Sarah Wilson',
-      managerContact: 'sarah.wilson@rubyconworld.in'
-    },
-    {
-      id: 'user-006',
-      name: 'Harsh Jain',
-      holderId: 'RBC-240593',
-      email: 'harsh.jain@example.com',
-      rbqBalance: 10044,
-      kycStatus: 'Verified',
-      joinDate: '2024-05-12',
-      assignedManager: 'David Johnson',
-      managerContact: 'david.johnson@rubyconworld.in'
-    }
-  ]);
+  const [users, setUsers] = useState<User[]>(null);
+  const[loading, setLoading] = useState(true);
 
+  //   [{
+  //     id: 'user-001',
+  //     name: 'John Doe',
+  //     holderId: 'RBC-15247',
+  //     email: 'john.doe@example.com',
+  //     rbqBalance: 6500,
+  //     kycStatus: 'Verified',
+  //     joinDate: '2024-03-15',
+  //     assignedManager: 'Sarah Wilson',
+  //     managerContact: 'sarah.wilson@rubyconworld.in'
+  //   },
+  //   {
+  //     id: 'user-002',
+  //     name: 'Jane Smith',
+  //     holderId: 'RBC-15248',
+  //     email: 'jane.smith@example.com',
+  //     rbqBalance: 3500,
+  //     kycStatus: 'Verified',
+  //     joinDate: '2024-02-20',
+  //     assignedManager: 'David Johnson',
+  //     managerContact: 'david.johnson@rubyconworld.in'
+  //   },
+  //   {
+  //     id: 'user-003',
+  //     name: 'Mike Johnson',
+  //     holderId: 'RBC-15249',
+  //     email: 'mike.johnson@example.com',
+  //     rbqBalance: 15632.89,
+  //     kycStatus: 'Pending',
+  //     joinDate: '2024-04-10',
+  //     assignedManager: 'Sarah Wilson',
+  //     managerContact: 'sarah.wilson@rubyconworld.in'
+  //   },
+  //   {
+  //     id: 'user-004',
+  //     name: 'Sarah Brown',
+  //     holderId: 'RBC-15250',
+  //     email: 'sarah.brown@example.com',
+  //     rbqBalance: 6892.15,
+  //     kycStatus: 'Verified',
+  //     joinDate: '2024-01-15',
+  //     assignedManager: 'David Johnson',
+  //     managerContact: 'david.johnson@rubyconworld.in'
+  //   },
+  //   {
+  //     id: 'user-005',
+  //     name: 'Vedant Sangwan',
+  //     holderId: 'RBC-240188',
+  //     email: 'vedant.sangwan@example.com',
+  //     rbqBalance: 5091.71,
+  //     kycStatus: 'Verified',
+  //     joinDate: '2024-04-20',
+  //     assignedManager: 'Sarah Wilson',
+  //     managerContact: 'sarah.wilson@rubyconworld.in'
+  //   },
+  //   {
+  //     id: 'user-006',
+  //     name: 'Harsh Jain',
+  //     holderId: 'RBC-240593',
+  //     email: 'harsh.jain@example.com',
+  //     rbqBalance: 10044,
+  //     kycStatus: 'Verified',
+  //     joinDate: '2024-05-12',
+  //     assignedManager: 'David Johnson',
+  //     managerContact: 'david.johnson@rubyconworld.in'
+  //   }
+  // ]);
+
+  useEffect(() => {
+    // Get initial session
+    supabase.auth.getSession().then(({ data }) => {
+      setUsers(data.session?.user ?? null);
+      console.log('Initial user session:', data.session?.user ?? null);
+      setLoading(false);
+    });
+
+    // Listen to auth changes
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUsers(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
   const setRbqRate = (rate: number) => {
     setRbqRateState(rate);
     
@@ -414,7 +434,17 @@ export const RubyConProvider: React.FC<RubyConProviderProps> = ({ children }) =>
   };
 
   const getCurrentUser = (): User => {
-    return users.find(user => user.id === currentUserId) || users[0];
+    
+    return {users, 
+         id: "user-001",
+      name: users.email,
+     holderId: 'RBC-15247',
+      
+      rbqBalance: 6500,
+      kycStatus: 'Verified',
+      joinDate: '2024-03-15',
+      assignedManager: 'Sarah Wilson',
+     managerContact: 'sarah.wilson@rubyconworld.in'};
   };
 
   const getUserTransactions = (userId: string): Transaction[] => {
@@ -527,6 +557,7 @@ export const RubyConProvider: React.FC<RubyConProviderProps> = ({ children }) =>
       });
       return;
     }
+    console.log('Creating sell order for user:', currentUser);
 
     const newOrder: SellOrder = {
       id: `sell-${Date.now()}-${Math.random().toString(36).substr(2, 3)}`,
@@ -540,6 +571,7 @@ export const RubyConProvider: React.FC<RubyConProviderProps> = ({ children }) =>
       createdDate: new Date().toISOString().split('T')[0],
       updatedDate: new Date().toISOString().split('T')[0]
     };
+    console.log('New sell order created:', newOrder);
     setSellOrders(prev => [newOrder, ...prev]);
 
     // Deduct tokens from user

@@ -174,6 +174,12 @@
 }
 
 @layer base {
+
+  html, body {
+    height: 100%;
+  }
+
+ 
   *, :after, :before, ::backdrop {
     box-sizing: border-box;
     border: 0 solid;
@@ -199,7 +205,10 @@
   }
 
   body {
-    line-height: inherit;
+   height: 100%;
+    min-height: 100vh;
+    background-color: var(--background);
+    color: var(--foreground);
   }
 
   hr {
@@ -493,6 +502,21 @@
   .\@container\/card-header {
     container: card-header / inline-size;
   }
+    .page-center {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+
+  .page-container {
+    width: 100%;
+    max-width: 80rem;
+    margin-inline: auto;
+    padding-inline: 1rem;
+  }
+
 
   .pointer-events-none {
     pointer-events: none;
@@ -3529,7 +3553,7 @@
   }
 }
 
-:root {
+ :root {
   --font-size: 14px;
   --background: #fff;
   --foreground: #1e1e1e;
@@ -3605,7 +3629,7 @@
   --sidebar-accent-foreground: #fff;
   --sidebar-border: #aa01144d;
   --sidebar-ring: #aa0114;
-}
+} 
 
 html {
   font-size: var(--font-size);
